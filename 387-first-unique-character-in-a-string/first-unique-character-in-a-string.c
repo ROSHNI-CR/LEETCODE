@@ -1,24 +1,15 @@
 int firstUniqChar(char* s)
 {
-    int n=strlen(s);
+    int freq[26]={0};
 
-    for(int i=0;i<n;i++)
+    for(int i=0;s[i]!='\0';i++)
     {
-        int found=0;
+        freq[s[i]-'a']++;
+    }
 
-        for(int j=0;j<n;j++)
-        {
-            // don't compare same index
-
-            if(i!=j && s[i]==s[j])
-            {
-                found=1;
-
-                break;
-            }
-        }
-
-        if(found==0)
+    for(int i=0;s[i]!='\0';i++)
+    {
+        if(freq[s[i]-'a']==1)
         {
             return i;
         }
