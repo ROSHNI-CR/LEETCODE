@@ -1,25 +1,18 @@
 class Solution(object):
     def subsets(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[List[int]]
-        """
-        res = []
-        subset = []
+        n=len(nums)
+        subset=1<<n
+        ans=[]
 
-        def backtrack(i):
-            # Base case: if we've considered all elements
-            if i >= len(nums):
-                res.append(list(subset))
-                return
-
-            # Decision 1: Include nums[i]
-            subset.append(nums[i])
-            backtrack(i + 1)
-
-            # Decision 2: Exclude nums[i] (Backtrack)
-            subset.pop()
-            backtrack(i + 1)
-
-        backtrack(0)
-        return res
+        for i in range(subset):
+            temp=[]
+            for j in range (n):
+            
+                if(i& (1<<j)):
+                
+                    temp.append(nums[j])
+                           
+            
+            ans.append(temp)
+        
+        return ans
