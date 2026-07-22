@@ -1,32 +1,20 @@
-import math
+from math import factorial
 
-class Solution(object):
-    def getPermutation(self, n, k):
-        """
-        :type n: int
-        :type k: int
-        :rtype: str
-        """
-        # 1. Create a list of available numbers: [1, 2, ..., n]
-        numbers = [str(i) for i in range(1, n + 1)]
-        
-        # 2. Pre-calculate factorials
-        factorials = [1] * n
-        for i in range(1, n):
-            factorials[i] = factorials[i-1] * i
-            
-        # 3. Adjust k to be 0-indexed
-        k -= 1
-        result = []
-        
-        # 4. Determine each digit one by one
-        for i in range(n - 1, -1, -1):
-            # Index of the number to pick from the available list
-            idx = k // factorials[i]
-            k %= factorials[i]
-            
-            # Add picked number to result and remove from available list
-            result.append(numbers.pop(idx))
-            
-        return "".join(result)
-        
+class Solution:
+    def getPermutation(self, n: int, k: int) -> str:
+        numbers = [i for i in range(1, n + 1)]
+        k -= 1  # Convert to 0-based index
+
+        ans = ""
+
+        for i in range(n, 0, -1):
+            fact = factorial(i - 1)
+
+            index = k // fact
+            ans += str(numbers[index])
+
+            numbers.pop(index)
+
+            k %= fact
+
+        return ans
